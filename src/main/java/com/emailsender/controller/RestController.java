@@ -20,12 +20,16 @@ public class RestController {
         Map<String, Object> result = new HashMap<>();
         try {
             System.out.println(email);
-            emailService.sendMail(email);
-            result.put("sendMail","Mail Send Successfully....");
+           Boolean isSuccess =emailService.sendMail(email);
+           if(isSuccess) {
+               result.put("sendMail", "Mail Send Successfully....");
+           }else{
+               result.put("sendMail","Oops Mail Not Send!!! Something Error.. Please Check your internet connection");
+           }
 
         }catch (Exception e ){
             e.printStackTrace();
-            result.put("sendMail","Oops Mail Not Send!!! Something Error");
+
         }
          return result;
 

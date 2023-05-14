@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
-    public void sendMail(Email em){
+    public Boolean sendMail(Email em){
         try{
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -20,9 +20,11 @@ public class EmailService {
             helper.setSubject(em.getSubject());
             helper.setText(em.getMessage());
             javaMailSender.send(message);
+            return true;
 
         }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
     }
 }
